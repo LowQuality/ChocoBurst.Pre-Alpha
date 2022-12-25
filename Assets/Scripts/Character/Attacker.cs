@@ -46,8 +46,8 @@ namespace Character
             horizontal = Mathf.CeilToInt(Input.GetAxisRaw("Horizontal")); 
             vertical = Mathf.CeilToInt(Input.GetAxisRaw("Vertical"));
 #else
-    horizontal = Mathf.CeilToInt(joystick.Horizontal);
-    vertical = Mathf.CeilToInt(joystick.Vertical);
+    horizontal = Mathf.RoundToInt(joystick.Horizontal);
+    vertical = Mathf.RoundToInt(joystick.Vertical);
 #endif
             if (horizontal != 0 || vertical != 0)
             {
