@@ -1,4 +1,8 @@
+using System;
+using System.Collections;
+using Character;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -9,8 +13,16 @@ namespace Enemy
         [SerializeField] private Transform player;
         [SerializeField] private Animator anim;
         public int dropScore;
-        public float cDistance;
+        public float stopDistance;
+        public float attackDistance;
         public bool canMoving = true;
+        public bool prowling;
+        public bool disabled;
+
+        private bool _isStarted;
+        private float _deg;
+        private float _originalSpeed;
+        private Vector3 _newPos;
 
         private SpriteRenderer _spriteRenderer;
         private static readonly int IsWalk = Animator.StringToHash("isWalk");
@@ -19,6 +31,7 @@ namespace Enemy
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _originalSpeed = speed;
         }
 
         private void Update()
@@ -27,11 +40,26 @@ namespace Enemy
             var position1 = transform.position;
             var direction = Vector2.Distance(position1, position);
 
-            if (canMoving) _spriteRenderer.flipX = position.x < position1.x;
-
-            if (direction > cDistance && canMoving)
+            _spriteRenderer.flipX = canMoving switch
             {
-                transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+                true when !prowling => position.x < position1.x,
+                true when prowling => _newPos.x < position1.x,
+                _ => _spriteRenderer.flipX
+            };
+
+            if (direction > stopDistance && canMoving && !prowling)
+            {
+                _newPos = position;
+                transform.position = Vector2.MoveTowards(position1, _newPos, speed * Time.deltaTime);
+                anim.SetBool(IsWalk, true);
+            } 
+            else if (Vector2.Distance(position1, _newPos) < 0.3f && canMoving && prowling)
+            {
+                anim.SetBool(IsWalk, false);
+            }
+            else if (canMoving && prowling)
+            {
+                transform.position = Vector2.MoveTowards(position1, _newPos, speed * Time.deltaTime);
                 anim.SetBool(IsWalk, true);
             }
             else
@@ -39,6 +67,49 @@ namespace Enemy
                 trackerRb.velocity = Vector2.zero;
                 anim.SetBool(IsWalk, false);
             }
+
+            switch (transform.name)
+            {
+                case "Enemy3(Clone)" when !_isStarted:
+                    StartCoroutine(RandomStopDistance());
+                    break;
+                case "Enemy3(Clone)" when GetComponent<Attacker>().isAttack:
+                    StopCoroutine(RandomStopDistance());
+                    break;
+            }
+        }
+
+        public IEnumerator RandomStopDistance()
+        {
+            var position = player.position;
+            
+            if (disabled) yield break;
+
+            _isStarted = true;
+            canMoving = true;
+            prowling = true;
+
+            var random = Random.Range(0, 100);
+            if (random >= 80)
+            {
+                prowling = false;
+                disabled = true;
+                speed = speed * 2 + 0.25f;
+                GetComponent<Attacker>().canAttack = true;
+            }
+            else
+            {
+                _newPos = new Vector3(position.x + Random.Range(-10, 10), position.y + Random.Range(-10, 10), 0);
+                GetComponent<Attacker>().canAttack = false;
+            }
+
+            yield return new WaitForSeconds(5f);
+            _isStarted = false;
+        }
+
+        public void ResetSpeed()
+        {
+            speed = _originalSpeed;
         }
     }
 }

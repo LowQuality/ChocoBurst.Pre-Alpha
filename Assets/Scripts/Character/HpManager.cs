@@ -22,6 +22,8 @@ namespace Character
 
         private Material _meshRenderer;
 
+        public bool isInvincibility;
+
         private void Awake()
         {
             try
@@ -73,7 +75,7 @@ namespace Character
 
         public void TakeDamage(float damage, GameObject enemy = null)
         {
-            if (_isDamaged) return;
+            if (_isDamaged || isInvincibility) return;
             _currentHp -= damage;
             _isDamaged = true;
             StartCoroutine(DamagedEffect());

@@ -317,8 +317,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 8957569351844452239, guid: 49fbb6b44a3a60347b11401e439a0b6c, type: 3}
-  - {fileID: 544860293115866222, guid: 11d0e2ad30f1d0b479df0ed7c513e83a, type: 3}
-  enemySpawnRates: 5000000014000000
+  - {fileID: 1171191272944115481, guid: e2698f86b78c59944ae40f591fc213c0, type: 3}
+  - {fileID: 405068612427330448, guid: ce4559a25f5f77042b149d105af6c844, type: 3}
+  enemySpawnRates: 4b0000001400000005000000
   spawnPoint: {fileID: 443548103}
   spawnArea: {fileID: 674546078}
   mainCamera: {fileID: 519420031}
@@ -107106,6 +107107,7 @@ MonoBehaviour:
   invincibilityFlashTime: 0.2
   gameOverScreen: {fileID: 2002542304}
   isEnemy: 0
+  isInvincibility: 0
 --- !u!114 &2083294214
 MonoBehaviour:
   m_ObjectHideFlags: 0

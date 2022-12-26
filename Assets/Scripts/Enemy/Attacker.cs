@@ -6,10 +6,11 @@ namespace Enemy
     {
         private static readonly int IsAttack = Animator.StringToHash("isAttack");
         private Animator _animator;
-        private bool _isAttack;
         private Transform _player;
         private Tracker _tracker;
         private GameObject _damageCollider;
+        public bool isAttack;
+        public bool canAttack;
 
         private void Start()
         {
@@ -25,24 +26,30 @@ namespace Enemy
             var position1 = transform.position;
             var direction = Vector2.Distance(position1, position);
 
-            _damageCollider.transform.localPosition = GetComponent<SpriteRenderer>().flipX
-                ? new Vector3(-Mathf.Abs(_damageCollider.transform.localPosition.x), 0, 0)
-                : new Vector3(Mathf.Abs(_damageCollider.transform.localPosition.x), 0, 0);
-
-            if (direction <= _tracker.cDistance && !_isAttack && _tracker.canMoving)
+            if (!isAttack)
             {
-                _tracker.canMoving = false;
-                _isAttack = true;
-                _animator.SetBool(IsAttack, true);
+                _damageCollider.transform.localPosition = GetComponent<SpriteRenderer>().flipX
+                    ? new Vector3(-Mathf.Abs(_damageCollider.transform.localPosition.x), 0, 0)
+                    : new Vector3(Mathf.Abs(_damageCollider.transform.localPosition.x), 0, 0);
             }
+
+            if (!(direction <= _tracker.attackDistance) || isAttack || !_tracker.canMoving || !canAttack) return;
+            _tracker.canMoving = false;
+            isAttack = true;
+            _animator.SetBool(IsAttack, true);
         }
 
         public void AniEnd()
         {
             _damageCollider.SetActive(false);
             _animator.SetBool(IsAttack, false);
+            isAttack = false;
             _tracker.canMoving = true;
-            _isAttack = false;
+
+            if (transform.name != "Enemy3(Clone)") return;
+            _tracker.disabled = false;
+            _tracker.canMoving = false;
+            _tracker.ResetSpeed();
         }
 
         public void EnableCollider()
