@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Enemy;
 using Management;
 using UnityEngine;
 
@@ -41,20 +42,12 @@ namespace Character
 
         private void Update()
         {
-            if (!isEnemy)
-            {
-                var bar = GameObject.Find("Camera").GetComponent<CameraMovement>();
-                bar.hpBar.value = _currentHp / maxHp;
+            if (isEnemy) return;
+            var bar = GameObject.Find("Camera").GetComponent<CameraMovement>();
+            bar.hpBar.value = _currentHp / maxHp;
 
-                if (!(_currentHp <= 0)) return;
-                GameOver();
-            }
-            else
-            {
-                if (!(_currentHp <= 0)) return;
-                ScoreManager.Instance.AddScore(10);
-                Destroy(gameObject);
-            }
+            if (!(_currentHp <= 0)) return;
+            GameOver();
         }
 
         private void FixedUpdate()
@@ -78,13 +71,19 @@ namespace Character
             gameOverScreen.SetActive(true);
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, GameObject enemy = null)
         {
             if (_isDamaged) return;
             _currentHp -= damage;
             _isDamaged = true;
             StartCoroutine(DamagedEffect());
             Invoke(nameof(ResetDamage), invincibilityTime);
+            
+            if (!isEnemy || enemy == null || !(_currentHp <= 0)) return;
+            StopCoroutine(DamagedEffect());
+            CancelInvoke(nameof(ResetDamage));
+            ScoreManager.Instance.AddScore(enemy.GetComponent<Tracker>().dropScore);
+            Destroy(gameObject);
         }
         
         public void Heal(float heal)

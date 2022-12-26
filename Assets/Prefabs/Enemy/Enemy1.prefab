@@ -247,6 +247,7 @@ MonoBehaviour:
   speed: 1
   player: {fileID: 0}
   anim: {fileID: 4293904034382782748}
+  dropScore: 10
   cDistance: 0.5
   canMoving: 1
 --- !u!95 &4293904034382782748

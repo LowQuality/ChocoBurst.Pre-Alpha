@@ -104,7 +104,7 @@ namespace Character
 
         public void Attack(GameObject t)
         {
-            t.GetComponent<HpManager>().TakeDamage(damage);
+            t.GetComponent<HpManager>().TakeDamage(damage, t);
         }
     }
 }

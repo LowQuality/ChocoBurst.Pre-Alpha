@@ -8,6 +8,7 @@ namespace Enemy
         [SerializeField] private float speed;
         [SerializeField] private Transform player;
         [SerializeField] private Animator anim;
+        public int dropScore;
         public float cDistance;
         public bool canMoving = true;
 
