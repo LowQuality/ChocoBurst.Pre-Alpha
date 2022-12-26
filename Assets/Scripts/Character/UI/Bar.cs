@@ -20,7 +20,7 @@ namespace Character.UI
             hpBar = GetComponent<RectTransform>();
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             var screenPos = uiCamera.WorldToScreenPoint(target.position + offset);
 

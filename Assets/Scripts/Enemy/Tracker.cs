@@ -25,8 +25,8 @@ namespace Enemy
             var position = player.position;
             var position1 = transform.position;
             var direction = Vector2.Distance(position1, position);
-            
-            _spriteRenderer.flipX = position.x < position1.x;
+
+            if (canMoving) _spriteRenderer.flipX = position.x < position1.x;
 
             if (direction > cDistance && canMoving)
             {

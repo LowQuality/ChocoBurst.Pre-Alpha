@@ -52,6 +52,7 @@ namespace Character
             else
             {
                 if (!(_currentHp <= 0)) return;
+                ScoreManager.Instance.AddScore(10);
                 Destroy(gameObject);
             }
         }

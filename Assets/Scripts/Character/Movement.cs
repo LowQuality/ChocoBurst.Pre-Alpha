@@ -33,7 +33,7 @@ namespace Character
             Application.targetFrameRate = 360;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (GlobalMoveDisable || localMoveDisable) return; // Disable movement if either is true
             float horizontal;

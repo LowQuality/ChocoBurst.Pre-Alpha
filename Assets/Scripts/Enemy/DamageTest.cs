@@ -7,16 +7,12 @@ namespace Enemy
     {
         private bool _isPlayerInRange;
 
+        [SerializeField] private int damage;
+
         private void Update()
         {
             if (!_isPlayerInRange) return;
-            if (transform.parent.name.Contains("Enemy1"))
-            {
-                GameObject.Find("Character").GetComponent<HpManager>().TakeDamage(10);
-            } else if (transform.parent.name.Contains("Enemy2"))
-            {
-                GameObject.Find("Character").GetComponent<HpManager>().TakeDamage(35);
-            }
+            GameObject.Find("Character").GetComponent<HpManager>().TakeDamage(damage);
         }
 
         private void OnTriggerEnter2D(Collider2D col)
