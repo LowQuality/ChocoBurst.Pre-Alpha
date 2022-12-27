@@ -16,13 +16,13 @@ namespace Character
         [SerializeField] private GameObject gameOverScreen;
         [SerializeField] private bool isEnemy;
 
+        public bool isInvincibility;
+
         private float _currentHp;
         private float _hpRegenTimer;
         private bool _isDamaged;
 
         private Material _meshRenderer;
-
-        public bool isInvincibility;
 
         private void Awake()
         {
@@ -80,14 +80,14 @@ namespace Character
             _isDamaged = true;
             StartCoroutine(DamagedEffect());
             Invoke(nameof(ResetDamage), invincibilityTime);
-            
+
             if (!isEnemy || enemy == null || !(_currentHp <= 0)) return;
             StopCoroutine(DamagedEffect());
             CancelInvoke(nameof(ResetDamage));
             ScoreManager.Instance.AddScore(enemy.GetComponent<Tracker>().dropScore);
             Destroy(gameObject);
         }
-        
+
         public void Heal(float heal)
         {
             _currentHp += heal;

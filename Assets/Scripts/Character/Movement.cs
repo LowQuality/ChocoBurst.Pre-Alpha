@@ -19,7 +19,7 @@ namespace Character
 
         [SerializeField] private Collider2D topCollider;
         [SerializeField] private Collider2D bottomCollider;
-        
+
         [SerializeField] private FloatingJoystick joystick;
 
         private Vector3 _v;
@@ -40,8 +40,8 @@ namespace Character
             float vertical;
 
 #if UNITY_EDITOR
-    horizontal = Input.GetAxisRaw("Horizontal"); 
-    vertical = Input.GetAxisRaw("Vertical");
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
 #else
     horizontal = joystick.Horizontal;
     vertical = joystick.Vertical;
@@ -49,13 +49,8 @@ namespace Character
 
             var sr = GetComponent<SpriteRenderer>();
             if (horizontal > 0)
-            {
                 sr.flipX = false;
-            }
-            else if (horizontal < 0)
-            {
-                sr.flipX = true;
-            }
+            else if (horizontal < 0) sr.flipX = true;
 
             _v = new Vector3(horizontal, vertical, 0).normalized;
             GameObject.Find("A").GetComponent<Rigidbody2D>().velocity = _v * moveSpeed;

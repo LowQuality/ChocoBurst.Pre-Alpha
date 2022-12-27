@@ -5,9 +5,8 @@ namespace Enemy
 {
     public class DamageTest : MonoBehaviour
     {
-        private bool _isPlayerInRange;
-
         [SerializeField] private int damage;
+        private bool _isPlayerInRange;
 
         private void Update()
         {

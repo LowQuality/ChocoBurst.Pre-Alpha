@@ -28,7 +28,7 @@ namespace Character.Skill
             if ((hR == 0 && vR == 0) || !Input.GetKeyDown(KeyCode.E) || IsCooldown ||
                 !_bounds.bounds.Contains(newPos)) return;
             player.position = newPos;
-            
+
             StartCoroutine(Cooldown(5));
         }
 
@@ -61,7 +61,7 @@ namespace Character.Skill
 
             if ((hR == 0 && vR == 0) || IsCooldown || !_bounds.bounds.Contains(newPos)) return;
             player.position = newPos;
-            
+
             StartCoroutine(Cooldown(5));
         }
     }

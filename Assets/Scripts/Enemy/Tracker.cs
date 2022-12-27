@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
-using Character;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Enemy
 {
     public class Tracker : MonoBehaviour
     {
+        private static readonly int IsWalk = Animator.StringToHash("isWalk");
         [SerializeField] private Rigidbody2D trackerRb;
         [SerializeField] private float speed;
         [SerializeField] private Transform player;
@@ -18,14 +16,13 @@ namespace Enemy
         public bool canMoving = true;
         public bool prowling;
         public bool disabled;
+        private float _deg;
 
         private bool _isStarted;
-        private float _deg;
-        private float _originalSpeed;
         private Vector3 _newPos;
+        private float _originalSpeed;
 
         private SpriteRenderer _spriteRenderer;
-        private static readonly int IsWalk = Animator.StringToHash("isWalk");
 
         private void Start()
         {
@@ -52,7 +49,7 @@ namespace Enemy
                 _newPos = position;
                 transform.position = Vector2.MoveTowards(position1, _newPos, speed * Time.deltaTime);
                 anim.SetBool(IsWalk, true);
-            } 
+            }
             else if (Vector2.Distance(position1, _newPos) < 0.3f && canMoving && prowling)
             {
                 anim.SetBool(IsWalk, false);
@@ -82,7 +79,7 @@ namespace Enemy
         public IEnumerator RandomStopDistance()
         {
             var position = player.position;
-            
+
             if (disabled) yield break;
 
             _isStarted = true;

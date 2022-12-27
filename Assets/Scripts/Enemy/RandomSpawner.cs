@@ -8,14 +8,14 @@ namespace Enemy
     {
         [SerializeField] private List<GameObject> enemyPrefabs;
         [SerializeField] private List<int> enemySpawnRates;
-        
+
         [SerializeField] private GameObject spawnPoint;
         [SerializeField] private Collider2D spawnArea;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float spawnDelay;
-        
+
         private float _timeSinceLastSpawn;
-        
+
         public static RandomSpawner Instance { get; private set; }
 
         private void Start()
@@ -29,12 +29,12 @@ namespace Enemy
             if (!(_timeSinceLastSpawn >= spawnDelay)) return;
             StartCoroutine(SpawnEnemy());
         }
-        
+
         private IEnumerator SpawnEnemy()
         {
             var loop = true;
             var bounds = spawnArea.bounds;
-            
+
             while (loop)
             {
                 var randomEnemy = Random.Range(0, enemyPrefabs.Count);
@@ -50,6 +50,7 @@ namespace Enemy
                 _timeSinceLastSpawn = 0f;
                 loop = false;
             }
+
             yield return null;
         }
     }

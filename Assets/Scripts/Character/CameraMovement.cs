@@ -10,6 +10,8 @@ namespace Character
         public static bool StaticBounds;
 
         public static CameraMovement Instance;
+
+        public static bool Hide;
         public bool fixedCamera;
         public GameObject target;
         public BoxCollider2D cameraBounds;
@@ -25,8 +27,6 @@ namespace Character
         [SerializeField] private Vector3 skill1Offset;
         [SerializeField] private GameObject p;
 
-        public static bool Hide;
-        
         private float _halfHeight;
         private float _halfWidth;
         private Vector3 _maxBound;
@@ -44,7 +44,7 @@ namespace Character
             var wUI = GameObject.Find("W_UI").GetComponent<Canvas>();
             var hpBarO = Instantiate(hpBarPrefab, wUI.transform);
             var skill1BarO = Instantiate(skill1BarPrefab, wUI.transform);
-            
+
             hpBar = hpBarO.GetComponent<Slider>();
             skill1Bar = skill1BarO.GetComponent<Slider>();
 
@@ -57,7 +57,7 @@ namespace Character
         private void Update()
         {
             p.SetActive(!Hide);
-            
+
             if (target == null && fixedCamera) return;
             var playerTPosition = target.transform.position;
             var position = transform.position;

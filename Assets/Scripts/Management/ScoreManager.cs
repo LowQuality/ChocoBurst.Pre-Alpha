@@ -10,12 +10,12 @@ namespace Management
         [SerializeField] private int maxScoreIRPL;
         [SerializeField] private Slider scoreSlider;
         [SerializeField] private TextMeshProUGUI scoreText;
-        
+
         private int _currentLv;
-        private int _currentScore;
         private int _currentMaxScore;
+        private int _currentScore;
         private int _totalScore;
-        
+
         public static ScoreManager Instance { get; private set; }
 
         private void Awake()
@@ -32,13 +32,13 @@ namespace Management
             scoreSlider.value = _currentScore;
             scoreText.text = $"Score: {_currentScore} / {_currentMaxScore}";
         }
-        
+
         public void AddScore(int score)
         {
             _currentScore += score;
             _totalScore += score;
             scoreSlider.value = _currentScore;
-            
+
             if (_currentScore >= _currentMaxScore)
             {
                 _currentLv++;
@@ -47,6 +47,7 @@ namespace Management
                 scoreSlider.maxValue = _currentMaxScore;
                 scoreSlider.value = _currentScore;
             }
+
             scoreText.text = $"Score: {_currentScore} / {_currentMaxScore}";
         }
     }

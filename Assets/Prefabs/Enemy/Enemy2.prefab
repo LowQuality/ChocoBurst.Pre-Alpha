@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttack: 0
-  canAttack: 0
+  canAttack: 1
 --- !u!114 &2820217481199293620
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,22 +11,19 @@ namespace Character
         [SerializeField] private float attackSDelay;
         [SerializeField] private float locationOffset;
         [SerializeField] private FloatingJoystick joystick;
-        
+        private Vector3 _attackRotation;
+
         private float _attackTimer;
         private bool _isAttacking;
-        private Vector3 _attackRotation;
-        
+
         private void Update()
         {
             StoreLastAttack();
 
             _attackTimer += Time.deltaTime;
-            if (_attackTimer >= attackDelay)
-            {
-                StartCoroutine(Attack());
-            }
+            if (_attackTimer >= attackDelay) StartCoroutine(Attack());
         }
-        
+
         private IEnumerator Attack()
         {
             hit.SetActive(true);
@@ -36,23 +33,20 @@ namespace Character
             _attackTimer = 0;
             hit.SetActive(false);
         }
-        
+
         private void StoreLastAttack()
         {
             float horizontal;
             float vertical;
 
 #if UNITY_EDITOR
-            horizontal = Mathf.CeilToInt(Input.GetAxisRaw("Horizontal")); 
+            horizontal = Mathf.CeilToInt(Input.GetAxisRaw("Horizontal"));
             vertical = Mathf.CeilToInt(Input.GetAxisRaw("Vertical"));
 #else
     horizontal = Mathf.RoundToInt(joystick.Horizontal);
     vertical = Mathf.RoundToInt(joystick.Vertical);
 #endif
-            if (horizontal != 0 || vertical != 0)
-            {
-                _attackRotation = new Vector3(horizontal, vertical, 0);
-            }
+            if (horizontal != 0 || vertical != 0) _attackRotation = new Vector3(horizontal, vertical, 0);
 
             var x = Mathf.CeilToInt(_attackRotation.x);
             var y = Mathf.CeilToInt(_attackRotation.y);
@@ -99,7 +93,7 @@ namespace Character
                     hit.transform.localPosition = new Vector3(-locationOffset, -locationOffset, 0);
                     hit.transform.localRotation = Quaternion.Euler(0, 0, -135);
                     break;
-            } 
+            }
         }
 
         public void Attack(GameObject t)

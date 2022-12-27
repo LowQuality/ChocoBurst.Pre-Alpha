@@ -5,12 +5,12 @@ namespace Enemy
     public class Attacker : MonoBehaviour
     {
         private static readonly int IsAttack = Animator.StringToHash("isAttack");
-        private Animator _animator;
-        private Transform _player;
-        private Tracker _tracker;
-        private GameObject _damageCollider;
         public bool isAttack;
         public bool canAttack;
+        private Animator _animator;
+        private GameObject _damageCollider;
+        private Transform _player;
+        private Tracker _tracker;
 
         private void Start()
         {
@@ -27,11 +27,9 @@ namespace Enemy
             var direction = Vector2.Distance(position1, position);
 
             if (!isAttack)
-            {
                 _damageCollider.transform.localPosition = GetComponent<SpriteRenderer>().flipX
                     ? new Vector3(-Mathf.Abs(_damageCollider.transform.localPosition.x), 0, 0)
                     : new Vector3(Mathf.Abs(_damageCollider.transform.localPosition.x), 0, 0);
-            }
 
             if (!(direction <= _tracker.attackDistance) || isAttack || !_tracker.canMoving || !canAttack) return;
             _tracker.canMoving = false;
