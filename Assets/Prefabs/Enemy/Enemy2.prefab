@@ -154,10 +154,12 @@ MonoBehaviour:
   speed: 0.7
   player: {fileID: 0}
   anim: {fileID: 1171191272944115483}
-  dropScore: 20
+  dropScore: 100
   stopDistance: 1.5
   attackDistance: 1.5
   canMoving: 1
+  prowling: 0
+  disabled: 0
 --- !u!95 &1171191272944115483
 Animator:
   serializedVersion: 5
@@ -190,6 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8bd1127979b43b485bf53b52e660b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttack: 0
+  canAttack: 0
 --- !u!114 &2820217481199293620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,13 +206,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4c071d914c448290bf17cb8309b9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 150
+  maxHp: 80
   hpRegenTime: 0
   hpRegenAmount: 0
-  invincibilityTime: 1.5
+  invincibilityTime: 0.75
   invincibilityFlashTime: 0.2
   gameOverScreen: {fileID: 0}
   isEnemy: 1
+  isInvincibility: 0
 --- !u!1 &1171191273181113169
 GameObject:
   m_ObjectHideFlags: 0

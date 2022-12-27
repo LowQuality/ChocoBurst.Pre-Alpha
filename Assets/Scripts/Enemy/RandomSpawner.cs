@@ -38,7 +38,7 @@ namespace Enemy
             while (loop)
             {
                 var randomEnemy = Random.Range(0, enemyPrefabs.Count);
-                var randomSpawnRate = Random.Range(0, 100);
+                var randomSpawnRate = Random.Range(1, 100);
 
                 if (randomSpawnRate > enemySpawnRates[randomEnemy]) continue;
                 var randomPosition = new Vector3(Random.Range(bounds.min.x, bounds.max.x),

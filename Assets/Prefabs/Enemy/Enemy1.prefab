@@ -285,10 +285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4c071d914c448290bf17cb8309b9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 50
+  maxHp: 40
   hpRegenTime: 0
   hpRegenAmount: 0
-  invincibilityTime: 1.5
+  invincibilityTime: 0.75
   invincibilityFlashTime: 0.2
   gameOverScreen: {fileID: 0}
   isEnemy: 1
