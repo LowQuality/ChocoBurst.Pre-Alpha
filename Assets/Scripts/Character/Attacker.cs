@@ -1,4 +1,5 @@
 using System.Collections;
+using Management;
 using UnityEngine;
 
 namespace Character
@@ -51,6 +52,7 @@ namespace Character
             var x = Mathf.CeilToInt(_attackRotation.x);
             var y = Mathf.CeilToInt(_attackRotation.y);
 
+            if (ButtonManager.IsPaused) return;
             switch (x)
             {
                 // >
