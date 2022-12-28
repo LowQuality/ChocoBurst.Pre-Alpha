@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Enemy
 {
@@ -22,7 +23,10 @@ namespace Enemy
         private Vector3 _newPos;
         private float _originalSpeed;
 
+        private bool _tmp;
+
         private SpriteRenderer _spriteRenderer;
+        private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
         private void Start()
         {
@@ -79,9 +83,10 @@ namespace Enemy
         public IEnumerator RandomStopDistance()
         {
             var position = player.position;
-
+            
             if (disabled) yield break;
 
+            anim.SetBool(IsAttack, false);
             _isStarted = true;
             canMoving = true;
             prowling = true;
@@ -91,7 +96,9 @@ namespace Enemy
             {
                 prowling = false;
                 disabled = true;
+                canMoving = true;
                 speed = speed * 2 + 0.25f;
+                GetComponent<Attacker>().isAttack = false;
                 GetComponent<Attacker>().canAttack = true;
             }
             else

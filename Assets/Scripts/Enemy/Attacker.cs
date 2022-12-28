@@ -33,6 +33,7 @@ namespace Enemy
 
             if (!(direction <= _tracker.attackDistance) || isAttack || !_tracker.canMoving || !canAttack) return;
             _tracker.canMoving = false;
+            _tracker.disabled = false;
             isAttack = true;
             _animator.SetBool(IsAttack, true);
         }

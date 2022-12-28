@@ -18,7 +18,6 @@ namespace Character
         [SerializeField] private LayerMask layerMask;
 
         [SerializeField] private Collider2D topCollider;
-        [SerializeField] private Collider2D bottomCollider;
 
         [SerializeField] private FloatingJoystick joystick;
 
@@ -27,7 +26,6 @@ namespace Character
 
         private void Awake()
         {
-            Physics2D.IgnoreCollision(topCollider, bottomCollider, true);
             Instance = this;
 
             Application.targetFrameRate = 360;
