@@ -54,6 +54,7 @@ namespace Management
         public void GameStart()
         {
             Time.timeScale = 1;
+            Flash.IsCooldown = false;
             CameraMovement.Hide = false;
 
             SceneManager.LoadScene("Game");

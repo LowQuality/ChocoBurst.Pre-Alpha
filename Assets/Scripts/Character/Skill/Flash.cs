@@ -8,6 +8,10 @@ namespace Character.Skill
         public static bool IsCooldown;
         [SerializeField] private Transform player;
         [SerializeField] private FloatingJoystick joystick;
+        public int rechargeTime;
+        [SerializeField] private GameObject flashAttack;
+        public float flashAttackDistance;
+        public float flashAttackDamage;
         private Collider2D _bounds;
 
         private void Start()
@@ -29,7 +33,8 @@ namespace Character.Skill
                 !_bounds.bounds.Contains(newPos)) return;
             player.position = newPos;
 
-            StartCoroutine(Cooldown(5));
+            StartCoroutine(FlashAttack());
+            StartCoroutine(Cooldown(rechargeTime));
         }
 
         private static IEnumerator Cooldown(int time)
@@ -41,12 +46,21 @@ namespace Character.Skill
             while (timer < time)
             {
                 bar.skill1Bar.value = timer / time;
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(1f);
                 timer++;
             }
 
             bar.skill1Bar.value = 1f;
             IsCooldown = false;
+        }
+        
+        private IEnumerator FlashAttack()
+        {
+            FlashAttackUpdater.Set(flashAttackDistance, flashAttackDamage);
+            var flash = Instantiate(flashAttack, player.position, Quaternion.identity);
+            
+            yield return new WaitForSeconds(0.5f);
+            Destroy(flash);
         }
 
         public void A()

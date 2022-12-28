@@ -58,7 +58,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.6}
+  m_Size: {x: 0.45, y: 0.45}
   m_EdgeRadius: 0
 --- !u!50 &8957569351216688267
 Rigidbody2D:
@@ -248,7 +248,7 @@ MonoBehaviour:
   player: {fileID: 0}
   anim: {fileID: 4293904034382782748}
   dropScore: 10
-  stopDistance: 1
+  stopDistance: 0.6
   attackDistance: 1
   canMoving: 1
   prowling: 0

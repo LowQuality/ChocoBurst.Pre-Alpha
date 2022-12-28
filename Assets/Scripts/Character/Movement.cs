@@ -5,14 +5,13 @@ namespace Character
 {
     public class Movement : MonoBehaviour
     {
-        private static readonly int DirX = Animator.StringToHash("DirX");
-        private static readonly int DirY = Animator.StringToHash("DirY");
-        private static readonly int Walking = Animator.StringToHash("Walking");
+        private static readonly int IsAttack = Animator.StringToHash("isAttack");
+        private static readonly int IsWalk = Animator.StringToHash("isWalk");
 
         public static Movement Instance;
 
         public bool localMoveDisable;
-        [SerializeField] private float moveSpeed;
+        public float moveSpeed;
         [SerializeField] private Animator animator;
         [SerializeField] private BoxCollider2D boxCollider;
         [SerializeField] private LayerMask layerMask;
@@ -51,6 +50,7 @@ namespace Character
             else if (horizontal < 0) sr.flipX = true;
 
             _v = new Vector3(horizontal, vertical, 0).normalized;
+            animator.SetBool(IsWalk, _v != Vector3.zero);
             GameObject.Find("A").GetComponent<Rigidbody2D>().velocity = _v * moveSpeed;
         }
 

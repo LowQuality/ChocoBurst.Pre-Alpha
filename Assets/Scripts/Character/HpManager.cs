@@ -75,7 +75,7 @@ namespace Character
 
         public void TakeDamage(float damage, GameObject enemy = null)
         {
-            if (_isDamaged || isInvincibility) return;
+            if (_isDamaged || isInvincibility || damage <= 0) return;
             _currentHp -= damage;
             _isDamaged = true;
             StartCoroutine(DamagedEffect());

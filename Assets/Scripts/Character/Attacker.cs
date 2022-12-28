@@ -1,4 +1,3 @@
-using System.Collections;
 using Management;
 using UnityEngine;
 
@@ -8,28 +7,35 @@ namespace Character
     {
         [SerializeField] private GameObject hit;
         [SerializeField] private float damage;
-        [SerializeField] private float attackDelay;
+        public float attackDelay;
         [SerializeField] private float attackSDelay;
-        [SerializeField] private float locationOffset;
+        [SerializeField] private Vector2 locationOffset;
         [SerializeField] private FloatingJoystick joystick;
+        [SerializeField] private Animator animator;
         private Vector3 _attackRotation;
 
         private float _attackTimer;
         private bool _isAttacking;
+        private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
         private void Update()
         {
             StoreLastAttack();
 
             _attackTimer += Time.deltaTime;
-            if (_attackTimer >= attackDelay) StartCoroutine(Attack());
+            if (_attackTimer >= attackDelay) Attack();
         }
 
-        private IEnumerator Attack()
+        private void Attack()
         {
             hit.SetActive(true);
             _isAttacking = true;
-            yield return new WaitForSeconds(attackSDelay);
+            animator.SetBool(IsAttack, true);
+        }
+
+        public void AniEnd()
+        {
+            animator.SetBool(IsAttack, false);
             _isAttacking = false;
             _attackTimer = 0;
             hit.SetActive(false);
@@ -57,44 +63,52 @@ namespace Character
             {
                 // >
                 case 1 when y == 0:
-                    hit.transform.localPosition = new Vector3(locationOffset, 0, 0);
-                    hit.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    break;
-                // >^
-                case 1 when y == 1:
-                    hit.transform.localPosition = new Vector3(locationOffset, locationOffset, 0);
-                    hit.transform.localRotation = Quaternion.Euler(0, 0, 45);
+                    hit.transform.localPosition = new Vector3(0.23f, -0.15f, 0);
+                    hit.transform.localRotation = Quaternion.Euler(0, 0, -90);
+                    hit.GetComponent<SpriteRenderer>().flipX = true;
+                    hit.GetComponent<SpriteRenderer>().sortingOrder = 0;
                     break;
                 // <
                 case -1 when y == 0:
-                    hit.transform.localPosition = new Vector3(-locationOffset, 0, 0);
-                    hit.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    break;
-                // <^
-                case -1 when y == 1:
-                    hit.transform.localPosition = new Vector3(-locationOffset, locationOffset, 0);
-                    hit.transform.localRotation = Quaternion.Euler(0, 0, -45);
-                    break;
-                // ^
-                case 0 when y == 1:
-                    hit.transform.localPosition = new Vector3(0, locationOffset, 0);
+                    hit.transform.localPosition = new Vector3(-0.23f, -0.15f, 0);
                     hit.transform.localRotation = Quaternion.Euler(0, 0, 90);
+                    hit.GetComponent<SpriteRenderer>().flipX = false;
+                    hit.GetComponent<SpriteRenderer>().sortingOrder = 0;
                     break;
                 // v
                 case 0 when y == -1:
-                    hit.transform.localPosition = new Vector3(0, -locationOffset, 0);
-                    hit.transform.localRotation = Quaternion.Euler(0, 0, -90);
+                    hit.transform.localPosition = new Vector3(-0.12f, -0.16f, 0);
+                    hit.transform.localRotation = Quaternion.Euler(0, 0, 180);
+                    hit.GetComponent<SpriteRenderer>().flipX = true;
+                    hit.GetComponent<SpriteRenderer>().sortingOrder = 3;
                     break;
-                // >v
-                case 1 when y == -1:
-                    hit.transform.localPosition = new Vector3(locationOffset, -locationOffset, 0);
-                    hit.transform.localRotation = Quaternion.Euler(0, 0, 135);
+                // ^
+                case 0 when y == 1:
+                    hit.transform.localPosition = new Vector3(0.004f, 0.092f, 0);
+                    hit.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    hit.GetComponent<SpriteRenderer>().flipX = true;
+                    hit.GetComponent<SpriteRenderer>().sortingOrder = 0;
                     break;
-                // <v
-                case -1 when y == -1:
-                    hit.transform.localPosition = new Vector3(-locationOffset, -locationOffset, 0);
-                    hit.transform.localRotation = Quaternion.Euler(0, 0, -135);
-                    break;
+                // // >^
+                // case 1 when y == 1:
+                //     hit.transform.localPosition = new Vector3(locationOffset, locationOffset, 0);
+                //     hit.transform.localRotation = Quaternion.Euler(0, 0, 45);
+                //     break;
+                // // <^
+                // case -1 when y == 1:
+                //     hit.transform.localPosition = new Vector3(-locationOffset, locationOffset, 0);
+                //     hit.transform.localRotation = Quaternion.Euler(0, 0, -45);
+                //     break;
+                // // >v
+                // case 1 when y == -1:
+                //     hit.transform.localPosition = new Vector3(locationOffset, -locationOffset, 0);
+                //     hit.transform.localRotation = Quaternion.Euler(0, 0, 135);
+                //     break;
+                // // <v
+                // case -1 when y == -1:
+                //     hit.transform.localPosition = new Vector3(-locationOffset, -locationOffset, 0);
+                //     hit.transform.localRotation = Quaternion.Euler(0, 0, -135);
+                //     break;
             }
         }
 

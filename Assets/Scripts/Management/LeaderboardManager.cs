@@ -86,9 +86,8 @@ namespace Management
         // Post Score
         public static IEnumerator PostScore(string name, int score)
         {
-            var data = new Dictionary<string, int> {{name, score}};
-            var json = JsonConvert.SerializeObject(data);
-            var dataBytes = Encoding.UTF8.GetBytes(json);
+            var data = $"{{ \"{name}\": {score} }}";
+            var dataBytes = Encoding.UTF8.GetBytes(data);
             
             if (_url == null)
             {

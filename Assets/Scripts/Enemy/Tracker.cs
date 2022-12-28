@@ -6,7 +6,6 @@ namespace Enemy
 {
     public class Tracker : MonoBehaviour
     {
-        private static readonly int IsWalk = Animator.StringToHash("isWalk");
         [SerializeField] private Rigidbody2D trackerRb;
         [SerializeField] private float speed;
         [SerializeField] private Transform player;
@@ -27,6 +26,7 @@ namespace Enemy
 
         private SpriteRenderer _spriteRenderer;
         private static readonly int IsAttack = Animator.StringToHash("isAttack");
+        private static readonly int IsWalk = Animator.StringToHash("isWalk");
 
         private void Start()
         {
@@ -85,10 +85,10 @@ namespace Enemy
             var position = player.position;
             
             if (disabled) yield break;
+            if (!anim.GetBool(IsAttack)) GetComponent<Attacker>().isAttack = false;
+            if (!GetComponent<Attacker>().isAttack) canMoving = true;
 
-            anim.SetBool(IsAttack, false);
             _isStarted = true;
-            canMoving = true;
             prowling = true;
 
             var random = Random.Range(0, 100);
