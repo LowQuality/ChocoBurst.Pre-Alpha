@@ -248,7 +248,7 @@ MonoBehaviour:
   player: {fileID: 0}
   anim: {fileID: 4293904034382782748}
   dropScore: 10
-  stopDistance: 0.6
+  stopDistance: 0.5
   attackDistance: 1
   canMoving: 1
   prowling: 0

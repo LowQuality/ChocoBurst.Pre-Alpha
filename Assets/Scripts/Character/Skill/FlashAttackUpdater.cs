@@ -10,8 +10,8 @@ namespace Character.Skill
         private static float _damage;
         private void Awake()
         {
-            if (_damage == 0) spriteRenderer.enabled = false;
             transform.localScale = new Vector3(_range / 5, _range / 5, 1);
+            if (_damage == 0) spriteRenderer.enabled = false;
         }
         
         public static void Set(float range, float damage)
