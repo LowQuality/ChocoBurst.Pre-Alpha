@@ -4,12 +4,14 @@ namespace Character.Skill
 {
     public class FlashAttackUpdater : MonoBehaviour
     {
-        [SerializeField] private BoxCollider2D _collider;
+        [SerializeField] private Transform transform;
+        [SerializeField] private SpriteRenderer spriteRenderer;
         private static float _range;
         private static float _damage;
         private void Awake()
         {
-            _collider.size = new Vector2(_range / 5, _range / 5);
+            if (_damage == 0) spriteRenderer.enabled = false;
+            transform.localScale = new Vector3(_range / 5, _range / 5, 1);
         }
         
         public static void Set(float range, float damage)

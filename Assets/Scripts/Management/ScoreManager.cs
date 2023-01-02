@@ -22,6 +22,7 @@ namespace Management
         [SerializeField] private List<GameObject> selCardPanel;
         [SerializeField] private List<int> cardsRate;
         [SerializeField] private int UnDMaxRate;
+        [SerializeField] private int UnDMinRate;
 
         private int _currentLv;
         private int _stackedLv;
@@ -49,7 +50,7 @@ namespace Management
             _currentMaxScore = defaultMaxScore;
             scoreSlider.maxValue = _currentMaxScore;
             scoreSlider.value = _currentScore;
-            scoreText.text = $"Score: {_currentScore} / {_currentMaxScore}";
+            scoreText.text = $"Score: {_currentScore} / {_currentMaxScore} | Total : {totalScore}";
         }
 
         public void AddScore(int score)
@@ -75,7 +76,7 @@ namespace Management
                     yield return StartCoroutine(LevelUpEvent());
                 }
 
-                scoreText.text = $"Score: {_currentScore} / {_currentMaxScore}";
+                scoreText.text = $"Score: {_currentScore} / {_currentMaxScore} | Total : {totalScore}";
                 _count--;
                 if (_count == 0)
                 {
@@ -92,14 +93,14 @@ namespace Management
                 List<GameObject> tmpSelCard = new();
                 var tmpScore = _currentScore - _currentMaxScore;
                 _currentScore = _currentMaxScore;
-                scoreText.text = $"Score: {_currentScore} / {_currentMaxScore}";
+                scoreText.text = $"Score: {_currentScore} / {_currentMaxScore} | Total : {totalScore}";
                 scoreSlider.value = _currentMaxScore;
 
                 // Pause
                 Time.timeScale = 0;
                 Movement.Instance.localMoveDisable = true;
                 CameraMovement.Hide = true;
-                ButtonManager.IsPaused = true;
+                ButtonManager.isPaused = true;
                 // Pause
 
                 // Pick a random card by rate
@@ -114,11 +115,12 @@ namespace Management
                     if (randomCardRate > cardsRate[randomCard]) continue;
                     if (a == 0 && (cards[randomCard].transform.name.Contains("SkillAttackDowngrade") ||
                                    cards[randomCard].transform.name.Contains("SkillAttackUpgrade(%)"))) continue;
+                    if (GameObject.Find("A").GetComponent<Movement>().moveSpeed > 5 && cards[randomCard].transform.name.Contains("MoveSpeed")) continue;
                     if (pickedCard == 1 && tmpSelCard[0].transform.name.Replace("(Clone)", "") == cards[randomCard].transform.name) continue;
 
                     tmpSelCard.Add(Instantiate(cards[randomCard], selCardPanel[pickedCard].transform.position,
                         Quaternion.identity, selCardPanel[pickedCard].transform));
-                    tmpSelCard[pickedCard].GetComponent<UpNDownGradeManager>().rate = random.Next(0, UnDMaxRate);
+                    tmpSelCard[pickedCard].GetComponent<UpNDownGradeManager>().rate = random.Next(UnDMinRate, UnDMaxRate);
                     
                     if (tmpSelCard[pickedCard].transform.name.Contains("AttackSpeed"))
                     {
@@ -153,7 +155,7 @@ namespace Management
                         {
                             if (tmpSelCard[pickedCard].transform.name.Contains("(+)"))
                             {
-                                tmpSelCard[pickedCard].GetComponent<UpNDownGradeManager>().afterChange = skillAtk + 1;
+                                tmpSelCard[pickedCard].GetComponent<UpNDownGradeManager>().afterChange = skillAtk + 5;
                             }
                             else
                             {
@@ -208,13 +210,13 @@ namespace Management
                 _currentMaxScore += _currentMaxScore * maxScoreIRPL / 100;
                 scoreSlider.maxValue = _currentMaxScore;
                 scoreSlider.value = _currentScore;
-                scoreText.text = $"Score: {_currentScore} / {_currentMaxScore}";
+                scoreText.text = $"Score: {_currentScore} / {_currentMaxScore} | Total : {totalScore}";
 
                 // Resume
                 Time.timeScale = 1;
                 Movement.Instance.localMoveDisable = false;
                 CameraMovement.Hide = false;
-                ButtonManager.IsPaused = false;
+                ButtonManager.isPaused = false;
                 // Resume
             }
         }

@@ -17,7 +17,7 @@ namespace Management
         [SerializeField] private TMP_InputField username;
         [SerializeField] private Button postButton;
         
-        public static bool IsPaused;
+        public static bool isPaused;
         
         public void Retry()
         {
@@ -25,6 +25,7 @@ namespace Management
             Movement.Instance.localMoveDisable = false;
             Flash.IsCooldown = false;
             CameraMovement.Hide = false;
+            isPaused = false;
 
             SceneManager.LoadScene("Game");
         }
@@ -37,7 +38,7 @@ namespace Management
             scoreMenu.SetActive(false);
             pauseMenu.SetActive(true);
             pauseButton.SetActive(false);
-            IsPaused = true;
+            isPaused = true;
         }
         
         public void Resume()
@@ -48,7 +49,7 @@ namespace Management
             scoreMenu.SetActive(true);
             pauseMenu.SetActive(false);
             pauseButton.SetActive(true);
-            IsPaused = false;
+            isPaused = false;
         }
 
         public void GameStart()
@@ -64,6 +65,19 @@ namespace Management
         {
             Time.timeScale = 1;
             SceneManager.LoadScene("Title");
+        }
+
+        public void jasal()
+        {
+            Time.timeScale = 1;
+            Movement.Instance.localMoveDisable = false;
+            CameraMovement.Hide = false;
+            scoreMenu.SetActive(true);
+            pauseMenu.SetActive(false);
+            pauseButton.SetActive(true);
+            isPaused = false;
+            
+            GameObject.Find("Character").GetComponent<HpManager>().TakeDamage(100);
         }
         
         public void PostScore()
@@ -91,7 +105,7 @@ namespace Management
         {
             if (!Input.GetKeyDown(KeyCode.Escape)) return;
             
-            if (!IsPaused)
+            if (!isPaused)
             {
                 Pause();
             }

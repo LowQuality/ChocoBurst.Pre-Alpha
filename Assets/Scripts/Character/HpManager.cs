@@ -69,6 +69,7 @@ namespace Character
             Time.timeScale = 0;
             Movement.Instance.localMoveDisable = true;
             CameraMovement.Hide = true;
+            ButtonManager.isPaused = true;
 
             gameOverScreen.SetActive(true);
         }

@@ -58,7 +58,7 @@ namespace Character
             var x = Mathf.CeilToInt(_attackRotation.x);
             var y = Mathf.CeilToInt(_attackRotation.y);
 
-            if (ButtonManager.IsPaused) return;
+            if (ButtonManager.isPaused) return;
             switch (x)
             {
                 // >

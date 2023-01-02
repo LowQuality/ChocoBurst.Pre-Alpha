@@ -76,7 +76,8 @@ namespace Character.Skill
             if ((hR == 0 && vR == 0) || IsCooldown || !_bounds.bounds.Contains(newPos)) return;
             player.position = newPos;
 
-            StartCoroutine(Cooldown(5));
+            StartCoroutine(FlashAttack());
+            StartCoroutine(Cooldown(rechargeTime));
         }
     }
 }

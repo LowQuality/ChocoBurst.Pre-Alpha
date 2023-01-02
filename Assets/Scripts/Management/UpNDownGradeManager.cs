@@ -36,13 +36,13 @@ namespace Management
                 _afterChangeColor = "ff0000";
             }
 
-            _field.Add("AttackSpeedUpgrade", $"플레이어의 공격 속도가 <color=#00ff00>{rate}%</color> 증가합니다.");
-            _field.Add("AttackSpeedDowngrade", $"플레이어의 공격 속도가 <color=#ff0000>{rate}%</color> 감소합니다.");
-            _field.Add("SkillAttackRangeUpgrade", $"플레이어의 스킬 공격 범위가 <color=#00ff00>{rate}%</color> 증가합니다.");
-            _field.Add("SkillAttackRangeDowngrade", $"플레이어의 스킬 공격 범위가 <color=#ff0000>{rate}%</color> 감소합니다.");
+            _field.Add("AttackSpeedUpgrade", $"플레이어의 공격 속도가 <color=#00ff00>{rate}%</color> 감소합니다.");
+            _field.Add("AttackSpeedDowngrade", $"플레이어의 공격 속도가 <color=#ff0000>{rate}%</color> 증가합니다.");
+            _field.Add("SkillAttackRangeUpgrade", $"플레이어의 <color=#ff0000>스킬 공격 범위</color>가 <color=#00ff00>{rate}%</color> 증가합니다.");
+            _field.Add("SkillAttackRangeDowngrade", $"플레이어의 <color=#ff0000>스킬 공격 범위</color>가 <color=#ff0000>{rate}%</color> 감소합니다.");
             _field.Add("SkillAttackUpgrade(%)", $"스킬 사용시 주변의 적이 받는 데미지를 <color=#00ff00>{rate}%</color> 증가합니다.");
             _field.Add("SkillAttackDowngrade(%)", $"스킬 사용시 주변의 적이 받는 데미지를 <color=#ff0000>{rate}%</color> 감소합니다.");
-            _field.Add("SkillAttackUpgrade(+)", "스킬 사용시 주변의 적이 받는 데미지를 <color=#00ff00>1</color> 만큼 증가합니다.");
+            _field.Add("SkillAttackUpgrade(+)", "스킬 사용시 주변의 적이 받는 데미지를 <color=#00ff00>5</color> 만큼 증가합니다.");
             _field.Add("MoveSpeedUpgrade", $"플레이어의 이동 속도가 <color=#00ff00>{rate}%</color> 증가합니다.");
             _field.Add("MoveSpeedDowngrade", $"플레이어의 이동 속도가 <color=#ff0000>{rate}%</color> 감소합니다.");
             _field.Add("SkillDelayUpgrade", "스킬 재충전 시간을 <color=#00ff00>1초</color> 감소합니다.");
